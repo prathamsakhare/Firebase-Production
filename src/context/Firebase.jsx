@@ -29,7 +29,10 @@ export const FirebaseProvider = (props) => {
       .catch((err) => alert(err));
   };
 
-  const putDataInDatabase = (key, data) => set(ref(database, key), data);
+  const putDataInDatabase = (key, data) =>
+    set(ref(database, key), data)
+      .then((res) => alert("Data Sent to Database"))
+      .catch((err) => alert(err));
 
   return (
     <FirebaseContext.Provider

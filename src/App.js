@@ -5,12 +5,16 @@ import { useFirebase } from "./context/Firebase";
 function App() {
   const firebase = useFirebase();
 
-
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-
+  const sendDataToDatabase = () => {
+    if (email && password) {
+      firebase.putDataInDatabase("users/" + "user", { email, password });
+    } else {
+      alert("Enter All The Data!");
+    }
+  };
   return (
     <div className="App">
       <h1>Firebase</h1>
@@ -26,7 +30,14 @@ function App() {
         type="password"
         placeholder="Enter Password..."
       />
-      <button onClick={() => firebase.signUpUserWithEmailAndPassword(email, password)}>SignUp</button>
+      <button
+        onClick={() => firebase.signUpUserWithEmailAndPassword(email, password)}
+      >
+        SignUp
+      </button>
+
+      <h2>for Testing Purpose only</h2>
+      <button onClick={sendDataToDatabase}>Send Data</button>
     </div>
   );
 }
