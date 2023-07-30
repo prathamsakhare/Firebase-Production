@@ -1,5 +1,7 @@
 import { createContext } from "react";
 import { initializeApp } from "firebase/app";
+import {getAuth, createUserWithEmailAndPassword} from 'firebase/auth'
+
 
 const firebaseConfig = {
   apiKey: "AIzaSyDeB0Eh-PiBtdylGO0JRQJ2dj7R0fAOT-g",
@@ -12,6 +14,7 @@ const firebaseConfig = {
 
 
 const firebaseApp = initializeApp(firebaseConfig);
+const firebaseAuth = getAuth(firebaseApp);
 
 
 
@@ -19,8 +22,11 @@ const FirebaseContext = createContext(null)
 
 
 export const FirebaseProvider = (props) => {
-    reutrn (
-        <FirebaseContext.Provider>
+    const signUpUserWithEmailAndPassword = (email, password) => {
+        return createUserWithEmailAndPassword(firebaseAuth, email, password)
+    }
+    return (
+        <FirebaseContext.Provider value={{signUpUserWithEmailAndPassword}}>
             {props.children}
         </FirebaseContext.Provider>
     )
